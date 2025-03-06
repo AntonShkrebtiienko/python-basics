@@ -10,4 +10,4 @@ instance = SomeCustomClass()
 
 # expressions
 print(2 * 3.12123 * 10)
-
+s = 2
