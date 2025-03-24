@@ -1,97 +1,6 @@
-from math import isclose
-# variables
-pocket = 5 # int
-coefficient = 2.85 # float
-sting_variable = 'just a string' # str
-class SomeCustomClass : pass
-fruits = ['Apples', 'Bananas', 'Grapes', 'Tomatoes'] # list
-food = {'Bananas', 'Yoghurt', 'Bacon'} # set
-workers : dict = {'name': 'Alan', 'age': 2} # dict, dictionary, dataset
-instance = SomeCustomClass() # __main__.SomeCustomClass
-a, b, c = 1, 2, 3 # this is called tuples unpacking method
-x = y = z = 5 # also same value to different variables assigned
-print(type(x)) # getting variable type
-if (type(x), int):
-    print(f'This int value is - {x}') # checking variable type and doing smth
-print(a, b, c)
-integer_number: int = 10 # type hints, could help me to assign static types
-# print(type(food))
-colour = (255, 0, 0) # tuple, represents an RGB colour
-# naming
-name = "Bob"
-year_of_birth = 1992
-isGay = True
-age = 1
-Age = 2
-aGe = 3
-AGE = 4 # all of them are different
-# print(age, Age, AGE, aGe )
-list = [1, 2 , 3, 4, 5, 6] # don't do this, you are shadowing the original object "list"
-_timeout = 0 # non-public variable, uses only inside defining module
-# class = 'Car' - cannot declare a variable from keywords names
+"""
 
-match = True # this is soft keyword witch occurs to be reserved only in specific context
-
-# variables discovered
-
-# operators and expressions
-print(2 * 3.12123 * 10)
-s = 2
-p = 1.1 + 2.2
-print(isclose(p, 3.3)) # comparison of floating-point numbers is different
-print(ord('A'), ord('a')) # Unicode code points of that str object type
-
-isGay = True if True else False # ternary operator in Python
-print(f'Am I gay?  - {isGay}!')
-print(s is p, s is not p) # identity operator
-print((boss_of_the_gym := True if isGay else False)) # walrus operator returns and assigns
-# bitwise I don't understand yet
-
-#conditional statements
-# if ; if else; if elif else
-gay = True
-if  isGay:
-    print('Yes, he is gay')
-elif gay == isGay:
-    print('Can I get your number, sussy?')
-else:
-    print('This time you passed, ok')
-
-# dict.get method for dictionary check without if else
-print(workers.get('name', 'WHo are you?'))
-
-# loops
-cnt = 0
-while (cnt < 3):
-    cnt = cnt + 1
-    if cnt == 3 : print('Here is final count: ')
-    print('Hello Geak')
-else:
-    print('Counter is bigger then 3')
-
-n = 4
-for i in range(0, n): # range from 0 to n-1
-    print(i)
-
-for letter in 'geeksforgeeks':
-    #if letter == 'e' or letter == 's':
-        # continue # returns the control to the begining of the loop
-        # break
-    pass
-print('Current letter :', letter)
-
-# match case statement
-
-# name = input('Enter your name: ') # input from the User
-#print('Hello, ', name)
-
-def greet(name):
-    """This function prints a greeting message"""
-    print(f"Hello, {name}!") # docstring comment for documentation mostly
-
-greet(name)
-
-# TASKS
+# TASKS 1 and 2
 first_name: str = input('What is your first name? ').strip()
 
 while not first_name:
@@ -132,10 +41,93 @@ while not salary:
     salary = '{:.3f}'.format(float(input('What is your salary? ')) / 1000)
 print(type(salary))
 
-is_on_project = input('Are u on project? (yes/no):').strip().lower() == 'yes' or input('Are u on project? (yes/no):').strip().lower() == 'no'
+is_on_project = input('Are u on project? (yes/no):').strip().lower() == 'yes'
 if is_on_project :
     print('Working!')
 else:
     print('On the branch')
 
 print(type(is_on_project))
+"""
+from curses.ascii import isdigit
+
+# TASK 3
+
+developers_counter = 0
+
+while (developers_counter < 5) :
+    developers_counter = developers_counter + 1
+
+
+    while True:
+        first_name: str = input('What is your first name? ').strip()
+        try :
+            int(first_name)
+            print('Input valid string value of your name')
+
+        except ValueError:
+            break
+
+    if not first_name :
+        continue
+
+    while True:
+        last_name: str = input('What is your last name? ').strip()
+        try:
+            int(last_name)
+            print('Input valid string value of your last name')
+
+        except ValueError:
+            break
+
+    if not last_name:
+        continue
+
+    while True:
+        work_experience = input('What is your work experience in years? ')
+        try:
+            int(work_experience)
+            break
+        except ValueError:
+            if not work_experience:
+                break
+            else:
+                print('Input an integer value of your work experience')
+
+    if not work_experience or int(work_experience) < 2:
+        continue
+
+    while True:
+        age = input('What is your age? ')
+        try:
+            int(age)
+            break
+        except ValueError:
+            if not age:
+                break
+            else:
+                print('Input an integer value of your age')
+
+    if not age:
+        continue
+
+    while True:
+        salary = '{:0.3f}'.format(float(input('What is your salary? ')) / 1000)
+        try:
+            float(salary)
+            break
+        except ValueError:
+            print('error')
+
+    if not salary or float(salary) >= 5.000:
+        continue
+
+    is_on_project = input('Are u on project? (yes/no):').strip().lower() == 'yes'
+
+    if int(work_experience) == 3 and float(salary) == 2.500:
+        print('Hired')
+        break
+
+    print(developers_counter, first_name, last_name, work_experience, age, salary, is_on_project)
+    if developers_counter == 5:
+        print('Still in search')
