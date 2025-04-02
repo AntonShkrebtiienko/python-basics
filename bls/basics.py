@@ -1,5 +1,3 @@
-"""
-
 # TASKS 1 and 2
 first_name: str = input('What is your first name? ').strip()
 
@@ -48,36 +46,30 @@ else:
     print('On the branch')
 
 print(type(is_on_project))
-"""
-from curses.ascii import isdigit
 
 # TASK 3
 
 developers_counter = 0
 
 while (developers_counter < 5) :
-    developers_counter = developers_counter + 1
+    developers_counter += 1
 
 
     while True:
         first_name: str = input('What is your first name? ').strip()
-        try :
-            int(first_name)
-            print('Input valid string value of your name')
-
-        except ValueError:
-            break
+        if first_name.isdigit():
+            print('Input valid string value of your first name')
+        else:
+             break
 
     if not first_name :
         continue
 
     while True:
         last_name: str = input('What is your last name? ').strip()
-        try:
-            int(last_name)
+        if last_name.isdigit():
             print('Input valid string value of your last name')
-
-        except ValueError:
+        else:
             break
 
     if not last_name:
@@ -86,13 +78,14 @@ while (developers_counter < 5) :
     while True:
         work_experience = input('What is your work experience in years? ')
         try:
-            int(work_experience)
+            work_experience = int(work_experience)
             break
         except ValueError:
             if not work_experience:
                 break
             else:
                 print('Input an integer value of your work experience')
+                continue
 
     if not work_experience or int(work_experience) < 2:
         continue
@@ -100,13 +93,14 @@ while (developers_counter < 5) :
     while True:
         age = input('What is your age? ')
         try:
-            int(age)
+            age = int(age)
             break
         except ValueError:
             if not age:
                 break
             else:
                 print('Input an integer value of your age')
+                continue
 
     if not age:
         continue
@@ -114,20 +108,21 @@ while (developers_counter < 5) :
     while True:
         salary = '{:0.3f}'.format(float(input('What is your salary? ')) / 1000)
         try:
-            float(salary)
+            salary = float(salary)
             break
         except ValueError:
             print('error')
+            continue
 
-    if not salary or float(salary) >= 5.000:
+    if not salary or salary >= 5.000:
         continue
 
     is_on_project = input('Are u on project? (yes/no):').strip().lower() == 'yes'
 
-    if int(work_experience) == 3 and float(salary) == 2.500:
+    if work_experience == 3 and salary == 2.500:
         print('Hired')
         break
 
     print(developers_counter, first_name, last_name, work_experience, age, salary, is_on_project)
-    if developers_counter == 5:
-        print('Still in search')
+else :
+    print('Still in search')
