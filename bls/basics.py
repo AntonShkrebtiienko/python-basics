@@ -36,7 +36,7 @@ print(type(age))
 salary: float = float('{:.3f}'.format(float(input('What is your salary? ')) / 1000))
 while not salary:
     print('Error: This field cannot be empty!')
-    salary = '{:.3f}'.format(float(input('What is your salary? ')) / 1000)
+    salary = float(input('What is your salary? ')) / 1000
 print(type(salary))
 
 is_on_project = input('Are u on project? (yes/no):').strip().lower() == 'yes'
@@ -106,9 +106,10 @@ while (developers_counter < 5) :
         continue
 
     while True:
-        salary = '{:0.3f}'.format(float(input('What is your salary? ')) / 1000)
+        salary_input = input('What is your salary? ')
         try:
-            salary = float(salary)
+            salary_converted = int(salary_input) / 1000
+            salary = round(salary_converted, 3)
             break
         except ValueError:
             print('error')
