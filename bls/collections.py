@@ -6,7 +6,7 @@ developer: dict = {}
 while True:
     first_name = input('What is your first name? ').strip()
     if len(first_name) > 0:
-        developer.setdefault('first name', first_name)
+        developer['first name'] = first_name
         break
     else:
         print('Input your name, please :)')
@@ -15,7 +15,7 @@ while True:
 while True:
     last_name = input('What is your last name? ').strip()
     if len(last_name) > 0:
-        developer.setdefault('last name', last_name)
+        developer['last name'] = last_name
         break
     else:
         print('Input your last name, please :)')
@@ -25,7 +25,7 @@ while True:
     work_experience = input('What is your work experience in years? ')
     try:
         work_experience = int(work_experience)
-        developer.setdefault('work experience', work_experience)
+        developer['work experience'] = work_experience
         break
     except ValueError:
         if not work_experience:
@@ -38,7 +38,7 @@ while True:
     age = input('What is your age? ')
     try:
         age = int(age)
-        developer.setdefault('age', age)
+        developer['age'] = age
         break
     except ValueError:
         if not age:
@@ -52,7 +52,7 @@ while True:
     try:
         salary_converted = int(salary_input) / 1000
         salary = round(salary_converted, 3)
-        developer.setdefault('salary', salary_converted)
+        developer['salary'] = salary_converted
         break
     except ValueError:
         print('input an integer value of your salary')
@@ -64,9 +64,9 @@ while True:
 
         match is_on_project:
             case 'yes':
-                developer.setdefault('is on project', 'Working on project')
+                developer['is on project'] = 'Working on project'
             case 'no':
-                developer.setdefault('is on project', 'Open to work')
+                developer['is on project'] = 'Open to work'
             case _:
                 print('Please answer yes or no')
                 continue
@@ -112,7 +112,7 @@ for key, value in developer.items():
 
 # Task 2
 projects = [f'Project{i}' for i in range(1,6,1)]
-developer.setdefault('projects', projects)
+developer['projects'] = projects
 
 for i in range(len(developer['projects'])) :
     if i % 2 == 0 and i > 0:
