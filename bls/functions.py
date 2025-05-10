@@ -1,24 +1,32 @@
 # Task 1
 storage: list = []
 
-def add_new_developer(storage: list, id: int,
-                      first_name: str, last_name:str,
-                      work_experience: int, salary:float,
-                      currency: str = 'USD', **kwargs):
+def add_new_developer(storage: list,
+                      id: int,
+                      first_name: str,
+                      last_name:str,
+                      work_experience: int,
+                      salary:float,
+                      currency: str = 'USD',
+                      **kwargs) -> None:
 
-    data: dict = locals()
-    developer: dict = {k: v for k, v in data.items() if k != "storage"}
-    developer_cleaned: dict = {k: v for k, v in developer.items() if k != "kwargs"}
+    developer: dict = {'id': id,
+                       'first name': first_name,
+                       'last name': last_name,
+                       'work experience': work_experience,
+                       'salary': salary,
+                       'currency': currency,
+                       'kwargs': kwargs
+                       }
 
-    match developer:
-
-        case {'kwargs': item} if item:
-            developer_cleaned.update(item)
-            storage.append(developer_cleaned)
-
-        case {'kwargs': {}}:
-            storage.append(developer_cleaned)
-
+    for key, item in developer.items():
+        if key and item:
+            #print('got u', item)
+            developer.pop('kwargs')
+            storage.append(developer)
+            break
+        else:
+            print('not')
 
 add_new_developer(storage, 1, 'Adam',
                   'Smasher',7, 5.8)
@@ -38,78 +46,75 @@ print(f'storage: {storage}')
 
 #Task 2
 
-def get_developer_by_id(storage:list, id: int):
-
+def get_developer_by_id(storage:list, id: int) -> dict:
+    found = {}
     for item in storage:
-        match item:
-            case {'id': i} if i == id:
-                print(item)
-                return item
-    return None
+        if item['id'] == id:
+            found = item
+            break
+    return found
 
 get_developer_by_id(storage, 1)
 get_developer_by_id(storage, 3)
 
 # Task 3
 
-def update_developer_by_id(storage:list, dev_id:int, **kwargs):
-    found_id = any(dev['id'] == kwargs.get('id') for dev in storage)
+def update_developer_by_id(storage:list, dev_id:int, **kwargs) -> None:
+    found_dev = get_developer_by_id(storage, dev_id)
+    new_id = kwargs.get('id')
 
-    for item in storage:
-        match item:
-            case {'id': i} if i == dev_id and found_id:
-                print('Developer with specified id already exist')
-                pass
-            case {'id': i} if i == dev_id and not found_id :
-                item.update(kwargs)
-                print(f'storage: {storage}')
-            case _:
-                pass
+    if any(item.get('id') == new_id for item in storage):
+        print('Developer with specified id already exist')
+        pass
+    else:
+        found_dev.update(kwargs)
+        print('updated storage: ', storage)
+
+    if 'work_experience' in found_dev:
+        found_dev['work experience'] = found_dev.pop('work_experience')
 
 update_developer_by_id(storage, 1, id=2)
 update_developer_by_id(storage, 4, work_experience=4, currency='USD', age=24)
 
 # Task 4
-def remove_developer_by_id(storage:list, id:int):
+def remove_developer_by_id(storage:list, id:int) -> None:
+    found_dev = get_developer_by_id(storage, id)
 
-    for item in storage:
-        match item:
-            case {'id': i} if i == id:
-                storage.remove(item)
-                print(f'storage: {storage}')
-                break
-            case _:
-                pass
+    if found_dev:
+        storage.remove(found_dev)
+    else:
+        pass
 
 remove_developer_by_id(storage, 3)
 
 # Task 5
-def add_projects(developer: dict, *args):
+def add_projects(developer: dict, *args) -> None:
 
     if 'projects' not in developer:
-        developer['projects'] = list(args[0])
+        developer['projects'] = list(args)
     elif isinstance(developer['projects'], list):
-        developer['projects'].extend(args[0])
+        developer['projects'].extend(args)
     else:
         print('Developer already has "projects" key and its not a list type')
 
-add_projects(storage[0], ['Smart House', 'Stream Platform',
-                                'Audio Translator', 'Tron', 'LOL'] )
-add_projects(storage[0], ['Smart House', 'Stream Platform',
-                                'Audio Translator', 'Tron', 'LOL'] )
+add_projects(storage[0], 'Smart House', 'Stream Platform',
+                                'Audio Translator', 'Tron', 'LOL' )
+print(storage)
 
 # Task 6
 
-storage = sorted(storage, key=lambda dev: dev['work_experience'])
+storage = sorted(storage, key=lambda dev: dev['work experience'])
 print(f'storage: {storage}')
 
-experienced_devs = list(filter(lambda dev: dev['work_experience'] > 3, storage))
+experienced_devs = list(filter(lambda dev: dev['work experience'] > 3, storage))
 print(f'storage Exp: {experienced_devs}')
 
 usd_to_uah = 41.47
 
-converted_storage = list(map(lambda dev: {
+converted_storage = list(map(
+    lambda dev: {
     **dev,
     'salary_uah': round(dev['salary'] * usd_to_uah, 2)
-}, storage))
+    }, storage
+))
 print(f'converted_storage: {converted_storage}')
