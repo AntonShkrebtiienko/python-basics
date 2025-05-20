@@ -4,16 +4,17 @@ storage: list = []
 def add_new_developer(storage: list,
                       id: int,
                       first_name: str,
-                      last_name:str,
+                      last_name: str,
                       work_experience: int,
-                      salary:float,
+                      salary: float,
                       currency: str = 'USD',
                       **kwargs) -> None:
 
-    developer: dict = {'id': id,
-                       'first name': first_name,
-                       'last name': last_name,
-                       'work experience': work_experience,
+    developer: dict = {
+                       'id': id,
+                       'first_name': first_name,
+                       'last_name': last_name,
+                       'work_experience': work_experience,
                        'salary': salary,
                        'currency': currency,
                        'kwargs': kwargs
@@ -21,47 +22,68 @@ def add_new_developer(storage: list,
 
     for key, item in developer.items():
         if key and item:
-            #print('got u', item)
             developer.pop('kwargs')
             storage.append(developer)
             break
         else:
             print('not')
 
-add_new_developer(storage, 1, 'Adam',
-                  'Smasher',7, 5.8)
+add_new_developer(
+                   storage, id = 1,
+                   first_name = 'Adam',
+                   last_name = 'Smasher',
+                   work_experience = 7,
+                   salary = 5.8
+)
 
-add_new_developer(storage, 2, 'Johny',
-                  'Silverhand',2, 1.5,
-                  age=27, department='DevOps')
+add_new_developer(
+                  storage,
+                  id =2, first_name ='Johny',
+                  last_name = 'Silverhand',
+                  work_experience = 2,
+                  salary = 1.5,
+                  age=27, department='DevOps'
+)
 
-add_new_developer(storage, 3, 'Panam',
-                  'Palmer',5, 170.5, 'UAH',
-                  projects=['Project1', 'Project2', 'Project3'])
+add_new_developer(
+                  storage,
+                  id =3, first_name ='Panam',
+                  last_name = 'Palmer',
+                  work_experience = 5,
+                  salary = 170.5,
+                  currency ='UAH',
+                  projects=['Project1', 'Project2', 'Project3']
+)
 
-add_new_developer(storage, 4, 'Jackie',
-                  'Welles',3, 2.7, 'EUR')
+add_new_developer(
+                  storage,
+                  id =4, first_name ='Jackie',
+                  last_name = 'Welles',
+                  work_experience = 3,
+                  salary = 2.7,
+                  currency = 'EUR'
+)
 
 print(f'storage: {storage}')
 
 #Task 2
 
-def get_developer_by_id(storage:list, id: int) -> dict:
-    found = {}
+def get_developer_by_id(storage: list, id: int) -> dict | None:
     for item in storage:
         if item['id'] == id:
-            found = item
-            break
-    return found
+            return item
+    return None
+
+
 
 get_developer_by_id(storage, 1)
 get_developer_by_id(storage, 3)
 
 # Task 3
 
-def update_developer_by_id(storage:list, dev_id:int, **kwargs) -> None:
-    found_dev = get_developer_by_id(storage, dev_id)
-    new_id = kwargs.get('id')
+def update_developer_by_id(storage: list, dev_id: int, **kwargs) -> None:
+    found_dev: dict = get_developer_by_id(storage, dev_id)
+    new_id: int = kwargs.get('id')
 
     if any(item.get('id') == new_id for item in storage):
         print('Developer with specified id already exist')
@@ -70,8 +92,6 @@ def update_developer_by_id(storage:list, dev_id:int, **kwargs) -> None:
         found_dev.update(kwargs)
         print('updated storage: ', storage)
 
-    if 'work_experience' in found_dev:
-        found_dev['work experience'] = found_dev.pop('work_experience')
 
 update_developer_by_id(storage, 1, id=2)
 update_developer_by_id(storage, 4, work_experience=4, currency='USD', age=24)
@@ -82,14 +102,11 @@ def remove_developer_by_id(storage:list, id:int) -> None:
 
     if found_dev:
         storage.remove(found_dev)
-    else:
-        pass
 
 remove_developer_by_id(storage, 3)
 
 # Task 5
 def add_projects(developer: dict, *args) -> None:
-
     if 'projects' not in developer:
         developer['projects'] = list(args)
     elif isinstance(developer['projects'], list):
@@ -103,10 +120,10 @@ print(storage)
 
 # Task 6
 
-storage = sorted(storage, key=lambda dev: dev['work experience'])
+storage = sorted(storage, key = lambda dev: dev['work_experience'])
 print(f'storage: {storage}')
 
-experienced_devs = list(filter(lambda dev: dev['work experience'] > 3, storage))
+experienced_devs = list(filter(lambda dev: dev['work_experience'] > 3, storage))
 print(f'storage Exp: {experienced_devs}')
 
 usd_to_uah = 41.47
@@ -115,6 +132,7 @@ converted_storage = list(map(
     lambda dev: {
     **dev,
     'salary_uah': round(dev['salary'] * usd_to_uah, 2)
-    }, storage
+    },
+    storage
 ))
 print(f'converted_storage: {converted_storage}')
