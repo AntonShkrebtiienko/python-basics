@@ -29,7 +29,8 @@ def add_new_developer(storage: list,
             print('not')
 
 add_new_developer(
-                   storage, id = 1,
+                   storage,
+                   id = 1,
                    first_name = 'Adam',
                    last_name = 'Smasher',
                    work_experience = 7,
@@ -38,26 +39,30 @@ add_new_developer(
 
 add_new_developer(
                   storage,
-                  id =2, first_name ='Johny',
+                  id = 2,
+                  first_name ='Johny',
                   last_name = 'Silverhand',
                   work_experience = 2,
                   salary = 1.5,
-                  age=27, department='DevOps'
+                  age = 27,
+                  department = 'DevOps'
 )
 
 add_new_developer(
                   storage,
-                  id =3, first_name ='Panam',
+                  id = 3,
+                  first_name = 'Panam',
                   last_name = 'Palmer',
                   work_experience = 5,
                   salary = 170.5,
-                  currency ='UAH',
-                  projects=['Project1', 'Project2', 'Project3']
+                  currency = 'UAH',
+                  projects = ['Project1', 'Project2', 'Project3']
 )
 
 add_new_developer(
                   storage,
-                  id =4, first_name ='Jackie',
+                  id = 4,
+                  first_name = 'Jackie',
                   last_name = 'Welles',
                   work_experience = 3,
                   salary = 2.7,
@@ -93,8 +98,8 @@ def update_developer_by_id(storage: list, dev_id: int, **kwargs) -> None:
         print('updated storage: ', storage)
 
 
-update_developer_by_id(storage, 1, id=2)
-update_developer_by_id(storage, 4, work_experience=4, currency='USD', age=24)
+update_developer_by_id(storage, 1, id = 2)
+update_developer_by_id(storage, 4, work_experience = 4, currency = 'USD', age = 24)
 
 # Task 4
 def remove_developer_by_id(storage:list, id:int) -> None:
